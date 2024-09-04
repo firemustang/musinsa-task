@@ -10,11 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BrandRepository extends JpaRepository<Brand, Long> {
-    @Query("SELECT b FROM Brand b JOIN FETCH b.productPrices ORDER BY b.id DESC")
-    List<Brand> findAllWithProducts();
+    @Query("SELECT b FROM Brand b LEFT JOIN FETCH b.productPrices")
+    List<Brand> findAllWithProductPrices();
 
-    List<Brand> findAllByOrderByIdDesc();
     Optional<Brand> findByName(String name);
-
-    Page<Brand> findAll(Pageable pageable);
+    @Query("SELECT b FROM Brand b LEFT JOIN FETCH b.productPrices")
+    Page<Brand> findAllWithProductPrices(Pageable pageable);
 }

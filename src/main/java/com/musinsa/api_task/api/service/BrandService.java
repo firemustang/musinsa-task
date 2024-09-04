@@ -65,8 +65,8 @@ public class BrandService {
 
     @Transactional(readOnly = true)
     public BrandLowestTotalPriceResponse findLowestTotalPriceBrand() {
-        Optional<Brand> optionalBrand = brandRepository.findAllByOrderByIdDesc().stream()
-                .min(Comparator.comparingInt(brand -> productPriceRepository.findByBrandIdOrderByCategoryAsc(brand.getId()).stream()
+        Optional<Brand> optionalBrand = brandRepository.findAllWithProductPrices().stream()
+                .min(Comparator.comparingInt(brand -> brand.getProductPrices().stream()
                         .mapToInt(ProductPrice::getPrice).sum()));
 
         if (optionalBrand.isEmpty()) {
@@ -75,7 +75,7 @@ public class BrandService {
 
         Brand brand = optionalBrand.get();
 
-        List<CategoryPriceDto> categories = productPriceRepository.findByBrandIdOrderByCategoryAsc(brand.getId()).stream()
+        List<CategoryPriceDto> categories = brand.getProductPrices().stream()
                 .map(price -> new CategoryPriceDto(price.getCategory().getDisplayName(), price.getPrice()))
                 .sorted(Comparator.comparing(dto -> Category.fromDisplayName(dto.category()).ordinal()))
                 .collect(Collectors.toList());
@@ -189,7 +189,7 @@ public class BrandService {
 
     @Transactional(readOnly = true)
     public Page<BrandResponse> findAllBrandsWithProducts(Pageable pageable) {
-        Page<Brand> brands = brandRepository.findAll(pageable);
+        Page<Brand> brands = brandRepository.findAllWithProductPrices(pageable);
 
         return brands.map(brand -> {
             List<ProductPriceResponse> productPriceResponses = brand.getProductPrices().stream()

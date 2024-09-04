@@ -4,7 +4,7 @@
 ### 사전 요구 사항
 - **Java 21 version**
 - **Gradle**
-- **H2 Database**: H2 인메모리 데이터베이스 사용
+- **H2 Database** : H2 인메모리 데이터베이스 사용
 
 ## 구현 범위
 1. **조회 기능**
@@ -62,7 +62,7 @@
     ```http
     GET /api/brand/lowest-total-price
     ```
-3. ** 카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격 조회
+3. **카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격 조회**
     ```http
     GET /api/brand/price-info?categoryName={categoryName}
     ```
