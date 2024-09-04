@@ -1,5 +1,4 @@
 ---
-
 # Java(Kotlin) Backend Engineer - 과제
 ### 사전 요구 사항
 - **Java 21 version**
