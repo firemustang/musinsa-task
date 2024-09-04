@@ -1,4 +1,9 @@
 ---
+# Java(Kotlin) Backend Engineer - 과제
+- Java 21 version
+- Gradle
+- H2 Database : H2 인메모리 데이터베이스 사용
+---
 
 ## 구현 범위
 1. **조회 기능**
@@ -160,5 +165,3 @@ private Map<String, Integer> productPrices = new HashMap<>();
 > 
 > 이때 product 삭제 이후 재조회를 하는데 dataTables의 reload를 구현하지 못해 개인적으로 아쉬웠습니다.
 > 
-
----
