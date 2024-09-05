@@ -3,6 +3,7 @@ package com.musinsa.api_task.api.controller;
 import com.musinsa.api_task.api.dto.request.BrandRequest;
 import com.musinsa.api_task.api.dto.response.*;
 import com.musinsa.api_task.api.service.BrandService;
+import com.musinsa.api_task.common.exception.BaseException;
 import com.musinsa.api_task.common.exception.code.ErrorCode;
 import com.musinsa.api_task.common.exception.code.SuccessCode;
 import com.musinsa.api_task.common.response.CommonResponse;
@@ -65,7 +66,7 @@ public class BrandController {
         try {
             BrandResponse response = brandService.addOrUpdateBrand(brandRequest);
             return ResponseEntity.ok(CommonResponse.success(SuccessCode.SUCCESS_INSERT, response));
-        } catch (IllegalArgumentException e){
+        } catch (BaseException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(CommonResponse.fail(ErrorCode.INVALID_CATEGORY));
         } catch (Exception e){

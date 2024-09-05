@@ -2,11 +2,14 @@ package com.musinsa.api_task.domain.entity;
 
 import com.musinsa.api_task.domain.enums.Category;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "product_price")
 public class ProductPrice {

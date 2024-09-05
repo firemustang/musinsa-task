@@ -452,7 +452,7 @@
                   }
                 })
                 .catch(error => {
-                  console.error('Error:', error);
+                  console.error('Error:', error.response.data.message);
                 });
       },
       fetchLowestTotalPrice() {
@@ -463,7 +463,7 @@
                   }
                 })
                 .catch(error => {
-                  console.error('Error:', error);
+                  console.error('Error:', error.response.data.message);
                 });
       },
       fetchPriceInfo() {
@@ -473,7 +473,7 @@
           return;
         }
         this.isCategoryRequired = false;
-        this.apiErrorMessage = ''; // 이전 오류 메시지 초기화
+        this.apiErrorMessage = '';
         axios.get(`/api/brand/price-info?categoryName=${this.categoryName}`)
                 .then(response => {
                   if (response.data.success) {
@@ -511,7 +511,6 @@
           return;
         }
 
-        // 카테고리명 또는 가격이 하나라도 없는 경우 에러 처리
         for (let i = 0; i < this.brandRequest.products.length; i++) {
           if (!this.brandRequest.products[i].category) {
             this.validationError = `카테고리명은 필수입니다. (행 ${i + 1})`;
@@ -535,8 +534,7 @@
                   }
                 })
                 .catch(error => {
-                  console.error('Error:', error);
-                  alert("저장에 실패했습니다.");
+                  alert("저장에 실패했습니다. :" + error.response.data.message);
                 });
       },
       fetchAllBrands() {
@@ -547,7 +545,7 @@
                   }
                 })
                 .catch(error => {
-                  console.error('Error:', error);
+                  console.error('Error:', error.response.data.message);
                 });
       },
       deleteBrand(brandId) {
@@ -559,7 +557,7 @@
                   }
                 })
                 .catch(error => {
-                  console.error('Error:', error);
+                  console.error('Error:', error.response.data.message);
                   alert('브랜드 삭제에 실패했습니다.');
                 });
       },
@@ -575,7 +573,7 @@
                   }
                 })
                 .catch(error => {
-                  console.error('Error:', error);
+                  console.error('Error:', error.response.data.message);
                 });
       },
       deleteProduct(productId) {
@@ -589,23 +587,11 @@
                   }
                 })
                 .catch(error => {
-                  console.error('Error:', error);
+                  console.error('Error:', error.response.data.message);
                   alert('상품 삭제에 실패했습니다.');
                 });
       },
       initializeDataTable() {
-        // this.$nextTick(() => {
-        //   if ($.fn.dataTable.isDataTable('#productsTable')) {
-        //     $('#productsTable').DataTable().destroy();
-        //   }
-        //   $('#productsTable').DataTable({
-        //     paging: true,
-        //     searching: false,
-        //     ordering: true,
-        //     info: true,
-        //     destroy: true
-        //   });
-        // });
         this.$nextTick(() => {
           if ($.fn.DataTable.isDataTable('#productsTable')) {
             $('#productsTable').DataTable().clear().destroy();
