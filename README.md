@@ -158,7 +158,11 @@ private Map<String, Integer> productPrices = new HashMap<>();
   
 ### Response 객체 반환
 - Entity 보호 및 Entity 변경 사항이 발생할 때 API 의 스펙이 변할 것을 고려햐여 Response record 사용하였습니다.
-- 에러 발생 시에 CommonResponse.fail() 메소드를 통해 실패 응답을 메시지와 함께 일관되게 반환하도록 설계하였습니다. 
+- 에러 발생 시에 CommonResponse.fail() 메소드를 통해 실패 응답을 메시지와 함께 일관되게 반환하도록 설계하였습니다.
+
+### JPA
+- N+1 문제를 해결하기 위해 fetch join (BrandRepository)를 사용하였습니다.
+- LAZY 로딩 시의 N+1 문제를 해결하기 위해 @EntityGraph (ProductPriceRepository)를 사용하였습니다.
 
 ### 프론트 엔드
 - 이전 프로젝트에서 사용하였던 `thymeleaf`와 `vue.js`를 사용하여 간단하게 웹에서 테스트 할 수 있는 환경을 제공 하였습니다.
