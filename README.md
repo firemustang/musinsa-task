@@ -57,23 +57,83 @@
     ```http
     GET /api/brand/lowest-price
     ```
-2. **단일 브랜드의 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액**
+    -응답
+   ```json
+   {
+    "success": true,
+    "message": "성공했습니다.",
+    "result": {
+        "lowestPrices": {
+            "상의": {
+                "id": 17,
+                "brandName": "C",
+                "category": "상의",
+                "price": 10000
+            },
+            "아우터": {
+                "id": 34,
+                "brandName": "E",
+                "category": "아우터",
+                "price": 5000
+            },
+            "바지": {
+                "id": 27,
+                "brandName": "D",
+                "category": "바지",
+                "price": 3000
+            },
+            "스니커즈": {
+                "id": 4,
+                "brandName": "A",
+                "category": "스니커즈",
+                "price": 9000
+            },
+            "가방": {
+                "id": 5,
+                "brandName": "A",
+                "category": "가방",
+                "price": 2000
+            },
+            "모자": {
+                "id": 30,
+                "brandName": "D",
+                "category": "모자",
+                "price": 1500
+            },
+            "양말": {
+                "id": 71,
+                "brandName": "I",
+                "category": "양말",
+                "price": 1700
+            },
+            "액세서리": {
+                "id": 48,
+                "brandName": "F",
+                "category": "액세서리",
+                "price": 1900
+            }
+        },
+        "totalAmount": 34100
+    }
+}
+   ```
+3. **단일 브랜드의 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액**
     ```http
     GET /api/brand/lowest-total-price
     ```
-3. **카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격 조회**
+4. **카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격 조회**
     ```http
     GET /api/brand/price-info?categoryName={categoryName}
     ```
-4. **브랜드 및 상품 추가/업데이트**
+5. **브랜드 및 상품 추가/업데이트**
     ```http
     POST /api/brand
     ```
-5. **브랜드 삭제**
+6. **브랜드 삭제**
     ```http
     DELETE /api/brand/delete-brand/{brandId}
     ```
-6. **상품 삭제**
+7. **상품 삭제**
     ```http
     DELETE /api/brand/delete-product/{productId}
     ```
