@@ -57,66 +57,6 @@
     ```http
     GET /api/brand/lowest-price
     ```
-    -응답
-   ```json
-   {
-    "success": true,
-    "message": "성공했습니다.",
-    "result": {
-        "lowestPrices": {
-            "상의": {
-                "id": 17,
-                "brandName": "C",
-                "category": "상의",
-                "price": 10000
-            },
-            "아우터": {
-                "id": 34,
-                "brandName": "E",
-                "category": "아우터",
-                "price": 5000
-            },
-            "바지": {
-                "id": 27,
-                "brandName": "D",
-                "category": "바지",
-                "price": 3000
-            },
-            "스니커즈": {
-                "id": 4,
-                "brandName": "A",
-                "category": "스니커즈",
-                "price": 9000
-            },
-            "가방": {
-                "id": 5,
-                "brandName": "A",
-                "category": "가방",
-                "price": 2000
-            },
-            "모자": {
-                "id": 30,
-                "brandName": "D",
-                "category": "모자",
-                "price": 1500
-            },
-            "양말": {
-                "id": 71,
-                "brandName": "I",
-                "category": "양말",
-                "price": 1700
-            },
-            "액세서리": {
-                "id": 48,
-                "brandName": "F",
-                "category": "액세서리",
-                "price": 1900
-            }
-        },
-        "totalAmount": 34100
-    }
-}
-   ```
 3. **단일 브랜드의 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액**
     ```http
     GET /api/brand/lowest-total-price
