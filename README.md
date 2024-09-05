@@ -1,10 +1,9 @@
 ---
-
-# MUSINSA Java(Kotlin) Backend Engineer - 과제
-### 사전 요구 사항
-- **Java 21 version**
-- **Gradle**
-- **H2 Database** : H2 인메모리 데이터베이스 사용
+# Java(Kotlin) Backend Engineer - 과제
+- Java 21 version
+- Gradle
+- H2 Database : H2 인메모리 데이터베이스 사용
+---
 
 ## 구현 범위
 1. **조회 기능**
@@ -58,23 +57,23 @@
     ```http
     GET /api/brand/lowest-price
     ```
-2. **단일 브랜드의 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액**
+3. **단일 브랜드의 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액**
     ```http
     GET /api/brand/lowest-total-price
     ```
-3. **카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격 조회**
+4. **카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격 조회**
     ```http
     GET /api/brand/price-info?categoryName={categoryName}
     ```
-4. **브랜드 및 상품 추가/업데이트**
+5. **브랜드 및 상품 추가/업데이트**
     ```http
     POST /api/brand
     ```
-5. **브랜드 삭제**
+6. **브랜드 삭제**
     ```http
     DELETE /api/brand/delete-brand/{brandId}
     ```
-6. **상품 삭제**
+7. **상품 삭제**
     ```http
     DELETE /api/brand/delete-product/{productId}
     ```
@@ -123,7 +122,7 @@
 1. **상품 삭제**:
    - 브랜드 조회 버튼을 클릭해 해당 브랜드의 상품 목록을 확인합니다.
    - 상품 옆의 "삭제" 버튼을 클릭하여 해당 상품을 삭제할 수 있습니다.
-   - 삭제 후 페이지에서 alert를 "확인" 한 후 2초 뒤 페이지가 리로드 됩니다. 이후 다시 조회 버튼을 눌러 상품이 목록에서 사라지는지 확인합니다.
+   - 삭제 후 페이지에서 alert를 "확인"버튼을 클릭릭 한 후 2초 뒤 페이지가 리로드 됩니다. 이후 다시 조회 버튼을 눌러 상품이 목록에서 사라지는지 확인합니다.
 
 
 ## 기타 추가 정보
@@ -147,25 +146,27 @@ private Map<String, Integer> productPrices = new HashMap<>();
 > ElementCollection 사용하여 추가적인 엔터티를 사용하지 않고도 데이터베이스에서 일대다 관계를 관리하려 했던 초기 목적을 포기하고
 > 정렬을 해결하기 위하여 엔터티 기반 설계, product_price를 별도의 엔티티로 만들고, Brand와 ProductPrice 간의 일대다 관계를 설정하였습니다.
 > 
-> 그리고 카테고리 목록을 Enum 을 사용하여 상수 값을 그룹하 시키고 타입 안정성을 고려하였습니다. 
+> 그리고 카테고리 목록을 Enum 을 사용하여 상수 값을 그룹화 시키고 타입 안정성을 고려하였습니다. 
 
 ### immutable class 사용
-- record 사용
-- 의존성 주입 방식을 생성자 주입 방식(private final 사용)으로 사용
-- 파라미터 재할당을 막기위해 final 키워드 명시
+- Dto 객체 작성시 record 클래스를 사용하여 불변성을 보장하였습니다.
+- 의존성 주입 방식을 생성자 주입 방식(private final 사용)으로 사용하였습니다.
+- 함수 파라미터 재할당을 막기위해 final 키워드 명시하였습니다.
 
 ### Transactional 속성 명시 
-- readOnly 속성 명시하여 영속상태 관리(Dirty checking) 및 메모리 최적화, 가독성 향상
-
+- readOnly 속성 명시하여 영속상태 관리(Dirty checking) 및 메모리 최적화, 가독성 향상을 고려하였습니다.
+  
 ### Response 객체 반환
-- Entity 보호 및 Entity 변경 사항이 발생할 때 API 의 스펙이 변할 것을 고려햐여 Response record 사용
+- Entity 보호 및 Entity 변경 사항이 발생할 때 API 의 스펙이 변할 것을 고려햐여 Response record 사용하였습니다.
+- 에러 발생 시에 CommonResponse.fail() 메소드를 통해 실패 응답을 메시지와 함께 일관되게 반환하도록 설계하였습니다.
+
+### JPA
+- N+1 문제를 해결하기 위해 fetch join (BrandRepository)를 사용하였습니다.
+- LAZY 로딩 시의 N+1 문제를 해결하기 위해 @EntityGraph (ProductPriceRepository)를 사용하였습니다.
 
 ### 프론트 엔드
-- 이전 프로젝트에서 사용하였던 thymeleaf와 vue.js를 사용하여 간단하게 웹에서 테스트 할 수 있는 환경을 제공 하였습니다.
-> 구현 4-2) 브랜드 및 상품을 삭제 하는 API에서 4-2) 전체 상품 조회를 웹 페이지에서 테스트 하실때 삭제 버튼을 누르고 alert가 뜬 뒤 2초 후에 전체 페이지 reload가 됩니다.
+- 이전 프로젝트에서 사용하였던 `thymeleaf`와 `vue.js`를 사용하여 간단하게 웹에서 테스트 할 수 있는 환경을 제공 하였습니다.
+> 구현 4-2) 브랜드 및 상품을 삭제 하는 API에서 4-2) 전체 상품 조회를 웹 페이지에서 테스트 하실때 삭제 버튼을 누르고 alert가 뜬 뒤 2초 후에 전체 페이지가 reload 됩니다.
 > 
-> 이때 product 삭제 이후 재조회를 하는데 dataTables의 reload를 구현하지 못해 개인적으로 아쉬웠습니다.
+> product 삭제 이후 재조회를 하는데 dataTables의 reload를 구현하지 못해 개인적으로 아쉬웠습니다.
 > 
-
-
----
